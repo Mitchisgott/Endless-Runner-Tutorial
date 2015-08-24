@@ -365,7 +365,7 @@ ModelImporter:
       takeName: 
       firstFrame: 290
       lastFrame: 319
-      wrapMode: 1
+      wrapMode: 4
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0

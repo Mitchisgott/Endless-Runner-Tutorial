@@ -2,12 +2,13 @@
 using System.Collections;
 
 public class PlayerMovement : MonoBehaviour {
-	
+
+	Animation animation;
 	public float speed;
 
 	// Use this for initialization
 	void Start () {
-	
+		animation = transform.GetComponent<Animation> ();
 	}
 	
 	// Update is called once per frame
@@ -27,8 +28,22 @@ public class PlayerMovement : MonoBehaviour {
 		}
 		if(Input.GetKeyDown(KeyCode.DownArrow))
 		{
-			transform.GetComponent<Animation>().Play("death");
-			transform.GetComponent<Animation>().PlayQueued("run");
+			StartCoroutine("Slide");
 		}
+	}
+	IEnumerator Slide()
+	{
+		transform.GetComponent<Animation>().Play("death");
+		while (animation["death"].normalizedTime >= 0)
+		{
+			if(animation["death"].normalizedTime > 2)
+			{
+				animation.Stop();
+				transform.GetComponent<Animation>().PlayQueued("run");
+				StopCoroutine("Slide");
+			}
+			yield return null;
+		}
+		yield return null;
 	}
 }
